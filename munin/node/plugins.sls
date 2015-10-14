@@ -5,9 +5,9 @@ include:
 
 # Enable common plugins
 {% for plugin, linked_file in pillar.get('munin_node_common_plugins', {}).items() %}
-/etc/munin/plugins/{{ plugin }}:
+{{ munin_node.plugin_dir }}/{{ plugin }}:
   file.symlink:
-    - target: {{ munin_node.plugin_dir}}/{{ linked_file }}
+    - target: {{ munin_node.plugin_dir }}/{{ linked_file }}
     - user: root
     - group: 0
     - mode: 755
@@ -16,4 +16,4 @@ include:
 {{ munin_node.service }}:
   service.running:
     - watch:
-      - file: /etc/munin/plugins/*
+      - file: {{ munin_node.plugin_dir }}/*
