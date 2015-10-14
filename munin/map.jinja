@@ -14,6 +14,11 @@
         'config': '/etc/munin/munin.conf',
         'config_src': 'salt://munin/files/munin.conf',
     },
+    'FreeBSD': {
+        'package': 'munin-master',
+        'config': '/usr/local/etc/munin/munin.conf',
+        'config_src': 'salt://munin/files/munin.conf',
+    },
 }, merge=salt['pillar.get']('munin_master:lookup')) %}
 
 {% set munin_node = salt['grains.filter_by']({
@@ -38,6 +43,13 @@
         'config_src': 'salt://munin/files/munin-node.conf',
         'plugin_dir': '/usr/lib/munin/plugins',
     },
+    'FreeBSD': {
+        'package': 'munin-node',
+        'service': 'munin-node',
+        'config': '/usr/local/etc/munin/munin-node.conf',
+        'config_src': 'salt://munin/files/munin-node.conf',
+        'plugin_dir': '/usr/local/share/munin/plugins',
+    },
 }, merge=salt['pillar.get']('munin_node:lookup')) %}
 
 {% set net_ssleay = salt['grains.filter_by']({
@@ -46,6 +58,9 @@
     },
     'RedHat': {
         'package': 'perl-Net-SSLeay',
+    },
+    'FreeBSD': {
+        'package': 'p5-Net-SSLeay',
     },
 }, merge=salt['pillar.get']('net_ssleay:lookup')) %}
 
@@ -59,5 +74,10 @@
         'private_key': '/etc/munin/tls/key.pem',
         'certificate': '/etc/munin/tls/crt.pem',
         'ca_certificate': '/etc/munin/tls/cacert.pem',
+    },
+    'FreeBSD': {
+        'private_key': '/usr/local/etc/munin/tls/key.pem',
+        'certificate': '/usr/local/etc/munin/tls/crt.pem',
+        'ca_certificate': '/usr/local/etc/munin/tls/cacert.pem',
     },
 }, merge=salt['pillar.get']('munin_tls:lookup')) %}
