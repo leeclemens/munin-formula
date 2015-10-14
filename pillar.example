@@ -17,7 +17,7 @@ munin_node:
   background: 1
   setsid: 1
   user: root
-  group: root
+  group: 0
   ignore_file:
     - "[\\#~]$"
     - "DEADJOE$"
@@ -48,7 +48,7 @@ munin_tls:
 
 munin_node_common_plugins:
   cpu: cpu
-  df: df 
+  df: df
   memory: memory
   uptime: uptime
   users: users

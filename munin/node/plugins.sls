@@ -9,7 +9,7 @@ include:
   file.symlink:
     - target: {{ munin_node.plugin_dir}}/{{ linked_file }}
     - user: root
-    - group: root
+    - group: 0
     - mode: 755
 {% endfor %}
 
